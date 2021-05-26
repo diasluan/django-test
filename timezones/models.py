@@ -19,6 +19,10 @@ class Timezone(models.Model):
     def get_gmt_repr(self):
         sign = "-" if self.gmt_diff < 0 else "+"
         hours, minutes = str(abs(self.gmt_diff)).split(".")
+        hours = hours.zfill(2)
         minutes = str(int(float("0." + minutes) * 60))
+
+        if len(minutes) == 1:
+            minutes += "0"
 
         return f"{sign}{hours}:{minutes}"
